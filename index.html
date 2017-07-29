@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <title>拖拽接口的调用</title>
+    <style type="text/css" media="screen">
+        .box>div{
+            height: 400px;
+            width:300px;
+            border:1px solid red;
+            margin-left:10px;
+            float:left;
+        }
+        p{
+            height: 30px;
+            background-color:orange;
+            color:black;
+        }
+
+    </style>
+</head>
+<body>
+    <div class="box">
+        <div class="box1">
+            <p id="p1" draggable=true>把我拖过去试试</p>
+            <p id="p2" draggable=true>把我也快拽过去</p>
+        </div>
+        <div class="box2">
+
+        </div>
+        <div class="box3">
+
+        </div>
+    </div>
+    <script>
+        var obj=null;
+        document.ondragstart=function(e){
+            e.target.style.opacity=0.5;
+            e.target.parentNode.style.borderWidth="5px";
+            obj=e.target;
+            e.dataTransfer.setData("text/html",e.target.id);
+        }
+        document.ondragend=function(e){
+            e.target.style.opacity=1;
+            e.target.parentNode.style.borderWidth="1px";
+        }
+        document.ondragleave=function(e){};
+        document.ondrap=function(e){};
+        document.ondragenter=function(e){};
+        document.ondragover=function(e){
+            e.preventDefault();
+        }
+        document.ondrop=function(e){
+            var id=e.dataTransfer.getData("text/html");
+            e.target.appendChild(document.getElementById(id));
+        }
+        document.ondragleave=function(e){};
+    </script>
+</body>
+</html>
